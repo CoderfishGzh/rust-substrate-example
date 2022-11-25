@@ -15,7 +15,11 @@
 */
 
 use sp_core::{sr25519, sr25519::Pair};
-use substrate_api_client::{rpc::WsRpcClient, Api, AssetTipExtrinsicParams, Metadata};
+use sp_keyring::AccountKeyring;
+use substrate_api_client::{
+    compose_extrinsic, rpc::WsRpcClient, Api, AssetTipExtrinsicParams, GenericAddress,
+    UncheckedExtrinsicV4, XtStatus,
+};
 
 fn main() {
     // 链接地址
@@ -23,37 +27,36 @@ fn main() {
 		println!("url is empty");
 		return;
 	};
-    // 创建API
-    let Ok(api) = get_api(url) else {
-		println!("can not get api");
-		return;
-	};
-    // 获取元数据
-    let meta = Metadata::try_from(api.get_metadata().unwrap()).unwrap();
-    meta.print_overview();
-    meta.print_pallets();
-    meta.print_pallets_with_calls();
-    meta.print_pallets_with_events();
-    meta.print_pallets_with_errors();
-    meta.print_pallets_with_constants();
 
-    // Print full substrate metadata json formatted.
-    println!(
-        "{}",
-        Metadata::pretty_format(&api.get_metadata().unwrap()).unwrap()
-    )
+    // initialize api and set the signer (sender) that is used to sign the extrinsics
+    let from = AccountKeyring::Alice.pair();
+    let client = WsRpcClient::new(&url);
+    let api = Api::<_, _, AssetTipExtrinsicParams>::new(client)
+        .map(|api| api.set_signer(from))
+        .unwrap();
+
+    // set the recipient
+    let to = AccountKeyring::Bob.to_account_id();
+
+    // call Balances::transfer
+    // the names are given as strings
+    #[allow(clippy::redundant_clone)]
+        let xt: UncheckedExtrinsicV4<_, _> = compose_extrinsic!(
+		api.clone(),
+		"Balances",
+		"transfer",
+		GenericAddress::Id(to),
+		Compact(42_u128)
+	);
+
+    println!("[+] Composed Extrinsic:\n {:?}\n", xt);
+
+    // send and watch extrinsic until InBlock
+    let tx_hash = api.send_extrinsic(xt.hex_encode(), XtStatus::Future);
+    println!("[+] Transaction got included. Hash: {:?}", tx_hash);
 }
 
 // 返回链对外开放的地址
 fn get_url() -> Option<String> {
     Some("ws://127.0.0.1:9944".to_string())
-}
-
-// 创建client 以及 api ，返回api对象
-fn get_api(url: String) -> Result<Api<Pair, WsRpcClient, AssetTipExtrinsicParams>, String> {
-    let client = WsRpcClient::new(&url);
-    let Ok(api) = Api::<sr25519::Pair, _, AssetTipExtrinsicParams>::new(client) else {
-		return Err("create api error".to_string());
-	};
-    Ok(api)
 }
