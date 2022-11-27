@@ -654,6 +654,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "68b91989ae21441195d7d9b9993a2f9295c7e1a8c96255d8b729accddc124797"
 
 [[package]]
+name = "extrinsic"
+version = "0.1.0"
+dependencies = [
+ "sp-core",
+ "sp-keyring",
+ "substrate-api-client",
+]
+
+[[package]]
 name = "fake-simd"
 version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1153,6 +1162,10 @@ dependencies = [
  "quote",
  "syn",
 ]
+
+[[package]]
+name = "init"
+version = "0.1.0"
 
 [[package]]
 name = "integer-sqrt"
@@ -2025,6 +2038,8 @@ dependencies = [
 name = "rust-substrate"
 version = "0.1.0"
 dependencies = [
+ "extrinsic",
+ "init",
  "sp-core",
  "sp-keyring",
  "substrate-api-client",
