@@ -654,6 +654,25 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "68b91989ae21441195d7d9b9993a2f9295c7e1a8c96255d8b729accddc124797"
 
 [[package]]
+name = "event"
+version = "0.1.0"
+dependencies = [
+ "parity-scale-codec",
+ "sp-keyring",
+ "sp-runtime",
+ "substrate-api-client",
+]
+
+[[package]]
+name = "extrinsic"
+version = "0.1.0"
+dependencies = [
+ "sp-core",
+ "sp-keyring",
+ "substrate-api-client",
+]
+
+[[package]]
 name = "fake-simd"
 version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1034,6 +1053,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "heck"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2540771e65fc8cb83cd6e8a237f70c319bd5c29f78ed1084ba5d50eeac86f7f9"
+
+[[package]]
 name = "hermit-abi"
 version = "0.1.19"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1147,6 +1172,10 @@ dependencies = [
  "quote",
  "syn",
 ]
+
+[[package]]
+name = "init"
+version = "0.1.0"
 
 [[package]]
 name = "integer-sqrt"
@@ -2019,7 +2048,11 @@ dependencies = [
 name = "rust-substrate"
 version = "0.1.0"
 dependencies = [
+ "event",
+ "extrinsic",
+ "init",
  "sp-core",
+ "sp-keyring",
  "substrate-api-client",
 ]
 
@@ -2049,6 +2082,12 @@ checksum = "bfa0f585226d2e68097d4f95d113b15b83a82e819ab25717ec0590d9584ef366"
 dependencies = [
  "semver",
 ]
+
+[[package]]
+name = "rustversion"
+version = "1.0.9"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "97477e48b4cf8603ad5f7aaf897467cf42ab4218a38ef76fb14c2d6773a6d6a8"
 
 [[package]]
 name = "ryu"
@@ -2484,6 +2523,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "sp-keyring"
+version = "6.0.0"
+source = "git+https://github.com/paritytech/substrate.git?branch=master#696bdc67af5fd83aca318263dbd405593b043ba3"
+dependencies = [
+ "lazy_static",
+ "sp-core",
+ "sp-runtime",
+ "strum",
+]
+
+[[package]]
 name = "sp-keystore"
 version = "0.12.0"
 source = "git+https://github.com/paritytech/substrate.git?branch=master#696bdc67af5fd83aca318263dbd405593b043ba3"
@@ -2756,6 +2806,28 @@ dependencies = [
  "nalgebra",
  "num-traits",
  "rand 0.8.5",
+]
+
+[[package]]
+name = "strum"
+version = "0.24.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "063e6045c0e62079840579a7e47a355ae92f60eb74daaf156fb1e84ba164e63f"
+dependencies = [
+ "strum_macros",
+]
+
+[[package]]
+name = "strum_macros"
+version = "0.24.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1e385be0d24f186b4ce2f9982191e7101bb737312ad61c1f2f984f34bcf85d59"
+dependencies = [
+ "heck",
+ "proc-macro2",
+ "quote",
+ "rustversion",
+ "syn",
 ]
 
 [[package]]
