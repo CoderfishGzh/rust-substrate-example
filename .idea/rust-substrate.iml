@@ -5,9 +5,11 @@
       <sourceFolder url="file://$MODULE_DIR$/extrinsic/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/init/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/event/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
       <excludeFolder url="file://$MODULE_DIR$/extrinsic/target" />
       <excludeFolder url="file://$MODULE_DIR$/init/target" />
+      <excludeFolder url="file://$MODULE_DIR$/event/target" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

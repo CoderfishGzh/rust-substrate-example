@@ -654,6 +654,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "68b91989ae21441195d7d9b9993a2f9295c7e1a8c96255d8b729accddc124797"
 
 [[package]]
+name = "event"
+version = "0.1.0"
+dependencies = [
+ "parity-scale-codec",
+ "sp-keyring",
+ "sp-runtime",
+ "substrate-api-client",
+]
+
+[[package]]
 name = "extrinsic"
 version = "0.1.0"
 dependencies = [
@@ -2038,6 +2048,7 @@ dependencies = [
 name = "rust-substrate"
 version = "0.1.0"
 dependencies = [
+ "event",
  "extrinsic",
  "init",
  "sp-core",

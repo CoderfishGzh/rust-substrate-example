@@ -1,7 +1,7 @@
-use sp_core::{sr25519, sr25519::Pair};
+use sp_core::sr25519::Pair;
 use substrate_api_client::{
-    compose_extrinsic, rpc::WsRpcClient, Api, AssetTipExtrinsicParams, GenericAddress,
-    UncheckedExtrinsicV4, XtStatus, compose_call, Metadata
+    compose_extrinsic, rpc::WsRpcClient, Api, AssetTipExtrinsicParams,
+    UncheckedExtrinsicV4, XtStatus
 };
 
 pub fn send_extrinsic(client: WsRpcClient, sender: Pair) {

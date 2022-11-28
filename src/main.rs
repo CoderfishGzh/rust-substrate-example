@@ -1,7 +1,8 @@
 #![feature(let_else)]
-use sp_core::{sr25519, sr25519::Pair};
+
+use sp_core::sr25519;
 use sp_keyring::AccountKeyring;
-use substrate_api_client::{Api, AssetTipExtrinsicParams, rpc::WsRpcClient};
+use substrate_api_client::{rpc::WsRpcClient, Api, AssetTipExtrinsicParams};
 
 fn main() {
     let Some(url) = init::get_url() else {
@@ -14,18 +15,17 @@ fn main() {
     let client = WsRpcClient::new(&url);
 
     // send extrinsics
-    extrinsic::send_extrinsic(
-        client.clone(),
-        sender,
-    );
+    extrinsic::send_extrinsic(client.clone(), sender);
 
     // check the storage
-    let mut api = Api::<sr25519::Pair, _, AssetTipExtrinsicParams>::new(client).unwrap();
-    let something: u32 = api.get_storage_value(
-        "Provider",
-        "Something",
-        None,
-    ).unwrap().unwrap();
+    let api = Api::<sr25519::Pair, _, AssetTipExtrinsicParams>::new(client.clone()).unwrap();
+    let something: u32 = api
+        .get_storage_value("Provider", "Something", None)
+        .unwrap()
+        .unwrap();
 
     assert_eq!(something, 10);
+
+    // test event 
+    event::get_event(client);
 }
